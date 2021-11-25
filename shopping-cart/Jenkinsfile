@@ -1,7 +1,7 @@
 pipeline {
     agent { node { label 'maven' } }
 
-    environment { APP_NAMESPACE = 'qznnjzs-security-scans' }
+    environment { APP_NAMESPACE = 'qznnjz-security-scans' }
 
     stages {
         stage('Test') {

@@ -16,8 +16,7 @@ pipeline {
             steps {
                 dir('shopping-cart') {
                     sh """
-                        oc start-build security-scans \
-                        --follow --wait -n ${APP_NAMESPACE}
+                        oc start-build security-scans --follow --wait -n ${APP_NAMESPACE}
                    """
                 }
             }
@@ -36,10 +35,7 @@ pipeline {
             steps {
                 dir('shopping-cart') {
                     sh """
-                        oc patch deployment security-scans \
-                        -p '{"spec": {"template": {"metadata": {"labels":
-                        {"build": "build-${BUILD_NUMBER}"}}}}}' \
-                        -n ${APP_NAMESPACE}
+                        oc patch deployment security-scans -p '{"spec": {"template": {"metadata": {"labels": {"build": "build-${BUILD_NUMBER}"}}}}}' -n ${APP_NAMESPACE}
                     """
                 }
             }

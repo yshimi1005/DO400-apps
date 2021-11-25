@@ -7,11 +7,19 @@ pipeline {
         stage('Checkout') {
             steps {
                 sendNotification('started', 'team@example.com')
-                git branch: 'notifications',
+                git branch: 'solutions',
                     url: 'https://github.com/yshimi1005/DO400-apps/'
             }    
         }
         stage('Test') {
+            steps {
+                dir('simple-calculator') {
+                    sh './mvnw clean test'  
+                }
+            }
+        }
+
+        stage('Check Style') {
             steps {
                 dir('simple-calculator') {
                     script {
@@ -22,14 +30,6 @@ pipeline {
                             unstable("${STAGE_NAME} stage failed!")
                         }
                     }
-                }
-            }
-        }
-
-        stage('Check Style') {
-            steps {
-                dir('simple-calculator') {
-                    sh './mvnw clean checkstyle:check'
                 }
             }
         }
